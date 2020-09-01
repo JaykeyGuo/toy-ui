@@ -21,7 +21,7 @@ import toyFormItem from '@/components/form/formItem.vue';
 import toyInput from '@/components/input/input.vue';
 
 export default {
-  name: 'ToyForm',
+  name: 'Form',
   components: {
     'toy-form': toyForm,
     'toy-form-item': toyFormItem,

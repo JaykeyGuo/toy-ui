@@ -99,6 +99,7 @@ export default {
         const model = {};
 
         model[this.prop] = this.fieldValue;
+        console.log(model);
         validator.validate(model, { firstFields: true }, (errors) => {
           this.validateState = !errors ? 'success' : 'error';
           this.validateMessage = errors ? errors[0].message : '';
@@ -109,9 +110,11 @@ export default {
       });
     },
     onFieldBlur() {
+      // console.info(`blur event: ${value}`);
       this.validate('blur');
     },
     onFieldChange() {
+      // console.info(`change event: ${value}`);
       this.validate('change');
     },
     resetFields() {
