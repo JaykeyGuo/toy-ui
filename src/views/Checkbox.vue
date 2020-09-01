@@ -7,7 +7,7 @@
     <br><br>
 
     <h3>多选</h3>
-    <toy-checkbox-group>
+    <toy-checkbox-group v-model="multiple">
       <toy-checkbox label="option1">选项1</toy-checkbox>
       <toy-checkbox label="option2">选项2</toy-checkbox>
       <toy-checkbox label="option3">选项3</toy-checkbox>
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import toyCheckBoxGroup from '@/components/checkbox/checkboxGroup.vue';
-import toyCheckBox from '@/components/checkbox/checkbox.vue';
+import toyCheckboxGroup from '@/components/checkbox/checkboxGroup.vue';
+import toyCheckbox from '@/components/checkbox/checkbox.vue';
 
 export default {
   name: 'Checkbox',
   components: {
-    'toy-checkbox-group': toyCheckBoxGroup,
-    'toy-checkbox': toyCheckBox,
+    'toy-checkbox-group': toyCheckboxGroup,
+    'toy-checkbox': toyCheckbox,
   },
   data() {
     return {

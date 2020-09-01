@@ -2,6 +2,15 @@
   <label>
     <span>
       <input
+        v-if="group"
+        type="checkbox"
+        :disabled="disabled"
+        :value="label"
+        v-model="model"
+        @change="change"
+      />
+      <input
+        v-else
         type="checkbox"
         :disabled="disabled"
         :checked="currentValue"
@@ -14,9 +23,10 @@
 
 <script>
 import Emitter from '@/mixins/emitter';
+import { findComponentUpward } from '@/utils/assist';
 
 export default {
-  name: 'ToyCheckbox',
+  name: 'toyCheckbox',
   mixins: [Emitter],
   props: {
     disabled: {
@@ -35,17 +45,32 @@ export default {
       type: [String, Number, Boolean],
       default: false,
     },
+    label: {
+      type: [String, Number, Boolean],
+    },
   },
   data() {
     return {
       currentValue: this.value,
+
+      model: [],
+      group: false,
+      parent: null,
     };
   },
-  // computed: {
-  //   currentValue() {
-  //     return this.value;
-  //   },
-  // },
+  mounted() {
+    this.parent = findComponentUpward(this, 'toyCheckboxGroup');
+    console.log(this.parent);
+    if (this.parent) {
+      this.group = true;
+    }
+
+    if (this.group) {
+      this.parent.updateModel(true);
+    } else {
+      this.updateModel();
+    }
+  },
   watch: {
     value(val) {
       if (val === this.trueValue || val === this.falseValue) {
@@ -67,10 +92,14 @@ export default {
       this.currentValue = checked;
 
       const value = checked ? this.trueValue : this.falseValue;
-      this.$emit('update', value);
       this.$emit('input', value);
-      this.$emit('on-change', value);
-      this.dispatch('ToyFormItem', 'on-form-change', value);
+
+      if (this.group) {
+        this.parent.change(this.model);
+      } else {
+        this.$emit('on-change', value);
+        this.dispatch('toyFormItem', 'on-form-change', value);
+      }
     },
     updateModel() {
       this.currentValue = this.value === this.trueValue;
