@@ -20,6 +20,11 @@ const routes = [
     name: 'Form',
     component: () => import(/* webpackChunkName: "form" */ '../views/Form.vue'),
   },
+  {
+    path: '/checkbox',
+    name: 'Checkbox',
+    component: () => import(/* webpackChunkName: "checkbox" */ '../views/Checkbox.vue'),
+  },
 ];
 
 const router = new VueRouter({

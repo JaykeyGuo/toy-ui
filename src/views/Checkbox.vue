@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>单项</h3>
-    <toy-checkbox v-model="single"></toy-checkbox>
+    <toy-checkbox v-model="single">单选</toy-checkbox>
     <br>
     数据：{{ single }}
     <br><br>
