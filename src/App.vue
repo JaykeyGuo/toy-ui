@@ -5,11 +5,8 @@
       <router-link to="/form">Form</router-link>
       <router-link to="/checkbox">Checkbox</router-link>
       <router-link to="/radio">Radio</router-link>
-      <!-- <router-link to="/about">About</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/about">About</router-link> -->
+      <router-link to="/display">Display</router-link>
+      <!-- <router-link to="/about">About</router-link> -->
     </div>
     <router-view/>
   </div>
