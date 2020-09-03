@@ -30,6 +30,11 @@ const routes = [
     name: 'Radio',
     component: () => import(/* webpackChunkName: "radio" */ '../views/Radio.vue'),
   },
+  {
+    path: '/display',
+    name: 'Display',
+    component: () => import(/* webpackChunkName: "display" */ '../views/Display.vue'),
+  },
 ];
 
 const router = new VueRouter({
