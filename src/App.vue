@@ -6,6 +6,7 @@
       <router-link to="/checkbox">Checkbox</router-link>
       <router-link to="/radio">Radio</router-link>
       <router-link to="/display">Display</router-link>
+      <router-link to="/alert">Alert</router-link>
       <!-- <router-link to="/about">About</router-link> -->
     </div>
     <router-view/>
@@ -14,6 +15,8 @@
 
 <style lang="scss">
 #nav {
+  display: flex;
+  flex-wrap: wrap;
   padding: 30px;
 
   a {

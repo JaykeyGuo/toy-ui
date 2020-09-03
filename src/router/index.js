@@ -35,6 +35,11 @@ const routes = [
     name: 'Display',
     component: () => import(/* webpackChunkName: "display" */ '../views/Display.vue'),
   },
+  {
+    path: '/alert',
+    name: 'Alert',
+    component: () => import(/* webpackChunkName: "alert" */ '../views/Alert.vue'),
+  },
 ];
 
 const router = new VueRouter({
