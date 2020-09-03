@@ -49,7 +49,6 @@ export default {
               valid = false;
               reject(errors);
             }
-            // eslint-disable-next-line no-plusplus
             if (++count === this.fields.length) {
               resolve(valid);
               if (typeof callback === 'function') {
