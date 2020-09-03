@@ -60,4 +60,4 @@ handleInput(event) {
 ---
 
 
-Vue `$emit`& ``$on` source code: https://github.com/vuejs/vue/blob/master/src/core/instance/events.js
+Vue `$emit`& `$on` source code: https://github.com/vuejs/vue/blob/master/src/core/instance/events.js
