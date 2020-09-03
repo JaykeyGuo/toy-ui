@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="toy--form--item">
     <label v-if="label" :class="{ 'toy-form-item-label-required': isRequired }">{{ label }}</label>
     <div>
       <slot></slot>
@@ -99,7 +99,6 @@ export default {
         const model = {};
 
         model[this.prop] = this.fieldValue;
-        console.log(model);
         validator.validate(model, { firstFields: true }, (errors) => {
           this.validateState = !errors ? 'success' : 'error';
           this.validateMessage = errors ? errors[0].message : '';
@@ -127,6 +126,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.toy--form--item {
+  display: flex;
+  margin: 6px 2px;
+  label {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 6px;
+  }
+  input {
+    border: 1px solid #E4E7ED;
+    border-radius: 2px;
+    padding: 4px 6px;
+  }
+}
+
 .toy-form-item-label-required:before {
   content: '*';
   color: red;

@@ -13,7 +13,7 @@
           单选
         </toy-checkbox>
       </toy-form-item> -->
-      <toy-form-item label="多选" prop="multiple">
+      <toy-form-item label="复选框" prop="multiple">
         <toy-checkbox-group v-model="formValidate.multiple">
           <toy-checkbox label="option1">选项1</toy-checkbox>
           <toy-checkbox label="option2">选项2</toy-checkbox>
@@ -22,6 +22,16 @@
           <toy-checkbox label="option5">选项5</toy-checkbox>
         </toy-checkbox-group>
       </toy-form-item>
+      <toy-form-item label="单选框" prop="picked">
+        <toy-radio-group v-model="formValidate.picked">
+          <toy-radio label="option1">选项1</toy-radio>
+          <toy-radio label="option2">选项2</toy-radio>
+          <toy-radio label="option3">选项3</toy-radio>
+          <toy-radio label="option4">选项4</toy-radio>
+          <toy-radio label="option5">选项5</toy-radio>
+        </toy-radio-group>
+      </toy-form-item>
+
     </toy-form>
     <button @click="handleSubmit">提交</button>
     <button @click="handleReset">重置</button>
@@ -35,6 +45,8 @@ import toyFormItem from '@/components/form/formItem.vue';
 import toyInput from '@/components/input/input.vue';
 import toyCheckbox from '@/components/checkbox/checkbox.vue';
 import toyCheckboxGroup from '@/components/checkbox/checkboxGroup.vue';
+import toyRadio from '@/components/radio/radio.vue';
+import toyRadioGroup from '@/components/radio/radioGroup.vue';
 
 export default {
   name: 'Form',
@@ -44,6 +56,8 @@ export default {
     'toy-input': toyInput,
     'toy-checkbox': toyCheckbox,
     'toy-checkbox-group': toyCheckboxGroup,
+    'toy-radio': toyRadio,
+    'toy-radio-group': toyRadioGroup,
   },
   data() {
     return {
@@ -52,6 +66,7 @@ export default {
         mail: '',
         // isAwesome: false,
         multiple: [],
+        picked: '',
       },
       ruleValidate: {
         name: [
@@ -68,6 +83,9 @@ export default {
           {
             type: 'array', required: true, message: '你不优秀吗？', trigger: 'change',
           },
+        ],
+        picked: [
+          { required: true, message: '请选择单选', trigger: 'change' },
         ],
       },
     };

@@ -4,6 +4,7 @@
       <router-link to="/home">Home</router-link>
       <router-link to="/form">Form</router-link>
       <router-link to="/checkbox">Checkbox</router-link>
+      <router-link to="/radio">Radio</router-link>
       <!-- <router-link to="/about">About</router-link>
       <router-link to="/about">About</router-link>
       <router-link to="/about">About</router-link>

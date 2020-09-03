@@ -3,7 +3,7 @@
     <span>
       <input
         v-if="group"
-        type="checkbox"
+        type="radio"
         :disabled="disabled"
         :value="label"
         v-model="model"
@@ -11,7 +11,7 @@
       />
       <input
         v-else
-        type="checkbox"
+        type="radio"
         :disabled="disabled"
         :checked="currentValue"
         @change="change"
@@ -26,7 +26,7 @@ import Emitter from '@/mixins/emitter';
 import { findComponentUpward } from '@/utils/assist';
 
 export default {
-  name: 'toyCheckbox',
+  name: 'toyRadio',
   mixins: [Emitter],
   props: {
     disabled: {
@@ -34,14 +34,6 @@ export default {
       default: false,
     },
     value: {
-      type: [String, Number, Boolean],
-      default: false,
-    },
-    trueValue: {
-      type: [String, Number, Boolean],
-      default: true,
-    },
-    falseValue: {
       type: [String, Number, Boolean],
       default: false,
     },
@@ -53,32 +45,25 @@ export default {
     return {
       currentValue: this.value,
 
-      model: [],
+      model: '',
       group: false,
       parent: null,
     };
   },
+  watch: {
+    value() {
+      this.updateModel();
+    },
+  },
   mounted() {
-    this.parent = findComponentUpward(this, 'toyCheckboxGroup');
-    if (this.parent) {
-      this.group = true;
-    }
+    this.parent = findComponentUpward(this, 'toyRadioGroup');
+    if (this.parent) this.group = true;
 
     if (this.group) {
-      this.parent.updateModel(true);
+      this.parent.updateModel(this.label);
     } else {
       this.updateModel();
     }
-  },
-  watch: {
-    value(val) {
-      if (val === this.trueValue || val === this.falseValue) {
-        this.updateModel();
-      } else {
-        // eslint-disable-next-line no-throw-literal
-        throw 'Value should be trueValue or fasleValue';
-      }
-    },
   },
   methods: {
     // eslint-disable-next-line consistent-return
@@ -88,9 +73,9 @@ export default {
       }
 
       const { checked } = event.target;
-      this.currentValue = checked;
+      this.currentValue = this.label;
 
-      const value = checked ? this.trueValue : this.falseValue;
+      const value = checked ? this.currentValue : '';
       this.$emit('input', value);
 
       if (this.group) {
@@ -101,7 +86,7 @@ export default {
       }
     },
     updateModel() {
-      this.currentValue = this.value === this.trueValue;
+      this.currentValue = this.value === this.label ? this.label : '';
     },
   },
 };

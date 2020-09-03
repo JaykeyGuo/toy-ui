@@ -10,14 +10,12 @@ import { findComponentsDownward } from '@/utils/assist';
 import Emitter from '@/mixins/emitter';
 
 export default {
-  name: 'toyCheckboxGroup',
+  name: 'toyRadioGroup',
   mixins: [Emitter],
   props: {
     value: {
-      type: Array,
-      default() {
-        return [];
-      },
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -28,22 +26,22 @@ export default {
   },
   watch: {
     value() {
-      this.updateModel(true);
+      this.updateModel(this.value);
     },
   },
   mounted() {
-    this.updateModel(true);
+    this.updateModel(this.value);
   },
   methods: {
-    updateModel(update) {
-      this.childrenList = findComponentsDownward(this, 'toyCheckbox');
+    updateModel(picked) {
+      this.childrenList = findComponentsDownward(this, 'toyRadio');
       if (this.childrenList) {
         const { value } = this;
         this.childrenList.forEach((child) => {
           child.model = value;
 
-          if (update) {
-            child.currentValue = value.indexOf(child.label) >= 0;
+          if (picked) {
+            child.currentValue = picked;
             child.group = true;
           }
         });
