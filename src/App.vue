@@ -7,6 +7,7 @@
       <router-link to="/radio">Radio</router-link>
       <router-link to="/display">Display</router-link>
       <router-link to="/alert">Alert</router-link>
+      <router-link to="/tableRender">Table Render</router-link>
       <!-- <router-link to="/about">About</router-link> -->
     </div>
     <router-view/>

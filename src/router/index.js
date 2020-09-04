@@ -40,6 +40,11 @@ const routes = [
     name: 'Alert',
     component: () => import(/* webpackChunkName: "alert" */ '../views/Alert.vue'),
   },
+  {
+    path: '/tableRender',
+    name: 'TableRender',
+    component: () => import(/* webpackChunkName: "table-render" */ '../views/TableRender.vue'),
+  },
 ];
 
 const router = new VueRouter({
