@@ -43,7 +43,17 @@ const routes = [
   {
     path: '/tableRender',
     name: 'TableRender',
-    component: () => import(/* webpackChunkName: "table-render" */ '../views/TableRender.vue'),
+    component: () => import(/* webpackChunkName: "table" */ '../views/TableRender.vue'),
+  },
+  {
+    path: '/tableSlot',
+    name: 'TableSlot',
+    component: () => import(/* webpackChunkName: "table" */ '../views/TableSlot.vue'),
+  },
+  {
+    path: '/tableRenderSlot',
+    name: 'TableRenderSlot',
+    component: () => import(/* webpackChunkName: "table" */ '../views/TableRender-Slot.vue'),
   },
 ];
 
