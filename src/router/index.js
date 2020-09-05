@@ -55,6 +55,11 @@ const routes = [
     name: 'TableRenderSlot',
     component: () => import(/* webpackChunkName: "table" */ '../views/TableRender-Slot.vue'),
   },
+  {
+    path: '/isComponent',
+    name: 'IsComponent',
+    component: () => import(/* webpackChunkName: "isComponent" */ '../views/IsComponent.vue'),
+  },
 ];
 
 const router = new VueRouter({

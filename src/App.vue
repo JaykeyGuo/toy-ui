@@ -10,6 +10,7 @@
       <router-link to="/tableRender">Table Render</router-link>
       <router-link to="/tableSlot">Table Slot</router-link>
       <router-link to="/tableRenderSlot">Table Render-Slot</router-link>
+      <router-link to="/isComponent">component is</router-link>
       <!-- <router-link to="/about">About</router-link> -->
     </div>
     <router-view/>
