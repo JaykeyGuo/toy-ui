@@ -55,6 +55,11 @@ const routes = [
     name: 'TableRenderSlot',
     component: () => import(/* webpackChunkName: "table" */ '../views/TableRender-Slot.vue'),
   },
+  {
+    path: '/tree',
+    name: 'Tree',
+    component: () => import(/* webpackChunkName: "tree" */ '../views/Tree.vue'),
+  },
 ];
 
 const router = new VueRouter({
