@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import toyTableRender from '@/components/table-render/table.vue';
+import toyTableRender from '@/components/table-slot/table-slotScope.vue';
 
 export default {
   name: 'TableRenderSlot',

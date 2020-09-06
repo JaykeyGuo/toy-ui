@@ -15,7 +15,7 @@
             <Render :row="row" :column="col" :index="rowIndex" :render="col.render"></Render>
           </template>
           <template v-else-if="'slot' in col">
-            <slot :row="row" :column="col" :index="rowIndex" :name="col.slot"></slot>
+            <slot-scope :row="row" :column="col" :index="rowIndex" :name="col.slot"></slot-scope>
           </template>
           <template v-else>
             {{ row[col.key] }}
@@ -28,11 +28,13 @@
 
 <script>
 import Render from './render';
+import SlotScope from './slot';
 
 export default {
   name: 'toyTableSlot',
   components: {
     Render,
+    SlotScope,
   },
   provide() {
     // eslint-disable-next-line no-unused-expressions
