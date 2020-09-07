@@ -28,7 +28,7 @@ import { findComponentUpward } from '@/utils/assist';
 import toyCheckbox from '@/components/checkbox/checkbox.vue';
 
 export default {
-  name: 'TreeNode',
+  name: 'ToyTreeNode',
   components: { toyCheckbox },
   props: {
     data: {
@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      tree: findComponentUpward(this, 'Tree'),
+      tree: findComponentUpward(this, 'ToyTree'),
     };
   },
   watch: {

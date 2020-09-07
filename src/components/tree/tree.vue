@@ -14,7 +14,7 @@ import { deepCopy } from '@/utils/assist';
 import TreeNode from './node.vue';
 
 export default {
-  name: 'Tree',
+  name: 'ToyTree',
   components: { TreeNode },
   props: {
     data: {
