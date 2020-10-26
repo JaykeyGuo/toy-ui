@@ -1,5 +1,35 @@
 # toy-ui
 
+
+##### 全局引入
+```js
+import Toy from 'toy-vue-ui';
+
+Vue.use(Toy);
+```
+
+##### 按需引入
+```js
+import {
+  Alert,
+  Checkbox,
+  CheckboxGroup,
+  Form,
+  Input,
+} from 'toy-vue-ui';
+
+const ToyComponents = [
+  Checkbox,
+  CheckboxGroup,
+  Form,
+  Input,
+];
+
+ToyComponents.forEach((component) => {
+  Vue.component(component.name, component);
+});
+```
+
 ## 组件通信方式
 
 ### dispatch
