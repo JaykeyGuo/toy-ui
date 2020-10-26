@@ -17,6 +17,8 @@ module.exports = {
     'no-else-return': 'off',
     'no-labels': 'off',
     'no-unused-labels': 'off',
-    'no-restricted-syntax': 'off'
+    'no-restricted-syntax': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'max-len': '200'
   },
 };
