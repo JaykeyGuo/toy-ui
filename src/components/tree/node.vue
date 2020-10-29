@@ -28,7 +28,7 @@ import { findComponentUpward } from '@/utils/assist';
 import toyCheckbox from '@/components/checkbox/checkbox.vue';
 
 export default {
-  name: 'ToyTreeNode',
+  name: 'TreeNode',
   components: { toyCheckbox },
   props: {
     data: {
