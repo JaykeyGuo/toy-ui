@@ -60,6 +60,11 @@ const routes = [
     name: 'Tree',
     component: () => import(/* webpackChunkName: "tree" */ '../views/Tree.vue'),
   },
+  {
+    path: '/license',
+    name: 'License',
+    component: () => import(/* webpackChunkName: "license" */ '../views/License.vue'),
+  },
 ];
 
 const router = new VueRouter({
