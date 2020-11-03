@@ -1,15 +1,15 @@
 <template>
   <div class="licensePlateKeyboard" v-if="showKeyboard">
     <div class="show-template">
-      <button @click="newEnergy()">新能源</button>
+      <!-- <button @click="newEnergy()">新能源</button> -->
       <template v-for="item in template" >
         <span class="container-box flex-center" :key="item.id">
           {{ item.value }}
         </span>
       </template>
-      <span class="container-box flex-center" v-if="isNewEnergy">
+      <!-- <span class="container-box flex-center" v-if="isNewEnergy">
         {{ newTemplateValue }}
-      </span>
+      </span> -->
       <!-- {{ currentValue }} -->
     </div>
     <div class="provinces-keyboard keyboard" v-show="showProvinesKeyboard">
@@ -69,6 +69,7 @@
 <script>
 // 京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领
 import Emitter from '@/mixins/emitter';
+import { provinces, numbers, englishKeys } from './basicData';
 
 export default {
   name: 'LicensePlateKeyboard',
@@ -84,8 +85,18 @@ export default {
     },
   },
   watch: {
-    value(val) {
-      this.currentValue = val;
+    value(newValue) {
+      this.currentValue = newValue;
+      if (this.currentValue.length) {
+        for (let i = 0; i < this.currentValue.length; i++) {
+          this.template[i] = { value: this.currentValue[i] };
+        }
+      } else {
+        console.log('xxx');
+        for (let i = 0; i < 7; i++) {
+          this.template[i] = { value: '' };
+        }
+      }
       this.showProvinesKeyboard = this.currentValue.length < 1;
       this.showNumberKeyboard = this.currentValue.length >= 2;
     },
@@ -109,129 +120,37 @@ export default {
       showProvinesKeyboard: true,
       showNumberKeyboard: false,
 
-      provincesList: [
-        { code: 31908, value: '粤' },
-        { code: 20140, value: '京' },
-        { code: 27941, value: '津' },
-        { code: 27818, value: '沪' },
-        { code: 28189, value: '渝' },
-        { code: 20864, value: '冀' },
-        { code: 35947, value: '豫' },
-        { code: 20113, value: '云' },
-        { code: 36797, value: '辽' },
-        { code: 40657, value: '黑' },
-        { code: 28248, value: '湘' },
-        { code: 30358, value: '皖' },
-        { code: 40065, value: '鲁' },
-        { code: 26032, value: '新' },
-        { code: 33487, value: '苏' },
-        { code: 27993, value: '浙' },
-        { code: 36195, value: '赣' },
-        { code: 37122, value: '鄂' },
-        { code: 26690, value: '桂' },
-        { code: 29976, value: '甘' },
-        { code: 26187, value: '晋' },
-        { code: 33945, value: '蒙' },
-        { code: 38485, value: '陕' },
-        { code: 21513, value: '吉' },
-        { code: 38397, value: '闽' },
-        { code: 36149, value: '贵' },
-        { code: 38738, value: '青' },
-        { code: 34255, value: '藏' },
-        { code: 24029, value: '川' },
-        { code: 23425, value: '宁' },
-        { code: 29756, value: '琼' },
-      ],
-      numberKeyboard: [
-        { code: 49, value: '1' },
-        { code: 50, value: '2' },
-        { code: 51, value: '3' },
-        { code: 52, value: '4' },
-        { code: 53, value: '5' },
-        { code: 54, value: '6' },
-        { code: 55, value: '7' },
-        { code: 56, value: '8' },
-        { code: 57, value: '9' },
-        { code: 48, value: '0' },
-      ],
-      englishKeyboard: [
-        [
-          { code: 81, value: 'Q' },
-          { code: 87, value: 'W' },
-          { code: 69, value: 'E' },
-          { code: 82, value: 'R' },
-          { code: 84, value: 'T' },
-          { code: 89, value: 'Y' },
-          { code: 85, value: 'U' },
-          { code: 73, value: 'I' },
-          { code: 79, value: 'O' },
-          { code: 80, value: 'P' },
-        ],
-        [
-          { code: 65, value: 'A' },
-          { code: 83, value: 'S' },
-          { code: 68, value: 'D' },
-          { code: 70, value: 'F' },
-          { code: 71, value: 'G' },
-          { code: 72, value: 'H' },
-          { code: 74, value: 'J' },
-          { code: 75, value: 'K' },
-          { code: 76, value: 'L' },
-        ],
-        [
-          { code: 90, value: 'Z' },
-          { code: 88, value: 'X' },
-          { code: 67, value: 'C' },
-          { code: 86, value: 'V' },
-          { code: 66, value: 'B' },
-          { code: 78, value: 'N' },
-          { code: 77, value: 'M' },
-        ],
-      ],
+      // provincesList: [],
+      // numberKeyboard: [],
+      // englishKeyboard: [],
+      provincesList: provinces,
+      numberKeyboard: numbers,
+      englishKeyboard: englishKeys,
     };
+  },
+  beforeMount() {
+    console.log(this.value);
+    this.showProvinesKeyboard = this.value.length < 1;
+    this.showNumberKeyboard = this.value.length >= 2;
+    for (let i = 0; i < this.value.length; i++) {
+      console.log(this.value[i]);
+      this.template[i] = { value: this.value[i] };
+    }
   },
   methods: {
     onClick(value) {
-      if (!this.isNewEnergy) {
-        if (this.currentValue.length >= 7) return;
-        this.currentValue += value;
-        this.template[this.currentValue.length - 1] = { value };
-        this.$emit('input', this.currentValue);
-      } else {
-        // eslint-disable-next-line no-lonely-if
-        if (this.currentValue.length < 7) {
-          this.currentValue += value;
-          this.template[this.currentValue.length - 1] = { value };
-          this.$emit('input', this.currentValue);
-        } else if (this.currentValue.length === 7) {
-          this.newTemplateValue = value;
-          this.$emit('input', this.currentValue + this.newTemplateValue);
-        } else if (this.currentValue.length > 8) {
-          this.$emit('input', this.currentValue + this.newTemplateValue);
-        }
-      }
+      if (this.currentValue.length >= 7) return;
+      this.currentValue += value;
+      this.$emit('input', this.currentValue);
 
       console.log(value);
     },
     deleteInput() {
-      if (!this.isNewEnergy) {
+      if (this.currentValue.length) {
         this.currentValue = this.currentValue.slice(0, this.currentValue.length - 1);
         this.template[this.currentValue.length] = {};
-        this.$emit('input', this.currentValue);
-      } else {
-        // eslint-disable-next-line no-lonely-if
-        if (this.currentValue.length < 7) {
-          this.currentValue = this.currentValue.slice(0, this.currentValue.length - 1);
-          this.template[this.currentValue.length] = {};
-          this.$emit('input', this.currentValue);
-        } else if (this.currentValue.length === 7) {
-          // this.template[this.currentValue.length] = {};
-          this.newTemplateValue = '';
-          this.$emit('input', this.currentValue + this.newTemplateValue);
-        } else if (this.currentValue.length > 8) {
-          this.$emit('input', this.currentValue + this.newTemplateValue);
-        }
       }
+      this.$emit('input', this.currentValue);
     },
     emitInput() {
       this.$emit('input', this.currentValue);
@@ -239,28 +158,18 @@ export default {
       this.$emit('update:showKeyboard', false);
       // this.showKeyboard = false;
     },
+    reset() {
+      this.currentValue = '';
+      this.$emit('input', this.currentValue);
+    },
     newEnergy() {
       console.log(this.templateLength, 'before');
       if (this.templateLength === 7) {
         this.templateLength = 8;
-        this.isNewEnergy = true;
       } else {
         this.templateLength = 7;
-        this.isNewEnergy = false;
       }
-      // this.templateLength = 8;
-      // this.currentValue = '';
       console.log(this.templateLength, 'after');
-      // if (this.length === 7) {
-      //   this.length = 8;
-      //   this.template[7] = '';
-      // } else {
-      //   this.length = 7;
-      //   delete this.template[7];
-      // }
-      // if (this.templateLength === 8) {
-      //   this.template[this.templateLength - 1] = '';
-      // }
     },
   },
 };

@@ -12,6 +12,7 @@
       <router-link to="/tableRenderSlot">Table Render-Slot</router-link>
       <router-link to="/tree">Tree</router-link>
       <router-link to="/license">License</router-link>
+      <router-link to="/car">Car</router-link>
       <!-- <router-link to="/about">About</router-link> -->
     </div>
     <router-view/>
