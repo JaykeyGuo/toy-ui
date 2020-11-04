@@ -1,6 +1,14 @@
 <template>
-  <div>
-    <car-input></car-input>
+  <div class="car">
+    <span>text</span>
+    <car-input
+      class="text-xx"
+      v-model="carNo"
+      :showTemplate="true"
+    />
+      <!-- placeholder="请输入车牌号" -->
+    <hr>
+    {{ carNo }}
   </div>
 </template>
 
@@ -12,9 +20,21 @@ export default {
   components: {
     CarInput,
   },
+  data() {
+    return {
+      carNo: '',
+    };
+  },
 };
 </script>
 
 <style>
-
+.car {
+  width: 100vw;
+  display: flex;
+}
+.text-xx {
+  width: 40vw;
+  margin: 4vw;
+}
 </style>
