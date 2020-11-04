@@ -48,7 +48,7 @@
             <template  v-for="(englishKey) in englishKeyRow">
               <span
                 class="english-key key flex-center"
-              :class="{'key-disable': currentValue.length === 7}"
+                :class="{'key-disable': currentValue.length === 7 || englishKey.value === 'I' || englishKey.value === 'O'}"
                 :key="englishKey.code"
                 @click="onClick(englishKey.value)">
                 {{ englishKey.value }}
@@ -158,6 +158,7 @@ export default {
   methods: {
     onClick(value) {
       if (this.currentValue.length >= 7) return;
+      if (value === 'I' || value === 'O') return;
       this.currentValue += value;
       this.$emit('input', this.currentValue);
     },
@@ -176,13 +177,13 @@ export default {
       this.currentValue = '';
       this.$emit('input', this.currentValue);
     },
-    newEnergy() {
-      if (this.templateLength === 7) {
-        this.templateLength = 8;
-      } else {
-        this.templateLength = 7;
-      }
-    },
+    // newEnergy() {
+    //   if (this.templateLength === 7) {
+    //     this.templateLength = 8;
+    //   } else {
+    //     this.templateLength = 7;
+    //   }
+    // },
   },
 };
 </script>
@@ -209,6 +210,7 @@ export default {
   background-color: #eee;
   overflow: hidden;
   animation: 100ms move;
+  z-index: 10;
 }
 @keyframes move {
   from {

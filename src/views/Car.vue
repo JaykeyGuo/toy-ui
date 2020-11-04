@@ -6,7 +6,6 @@
       v-model="carNo"
       :showTemplate="true"
     />
-      <!-- placeholder="请输入车牌号" -->
     <hr>
     {{ carNo }}
   </div>
@@ -36,5 +35,6 @@ export default {
 .text-xx {
   width: 40vw;
   margin: 4vw;
+  border: none;
 }
 </style>

@@ -74,7 +74,6 @@ export default {
 }
 .car-input-box {
   border: 1px solid black;
-  // min-width: 30vw;
   height: 20px;
   padding: 4px;
   display: flex;
@@ -96,7 +95,6 @@ export default {
     opacity: 0;
   }
 }
-
 .number-input-placeholder {
   color: #aaa;
 }
