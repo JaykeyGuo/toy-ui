@@ -1,19 +1,19 @@
 <template>
-  <div class="car-keyboard-box" v-if="showKeyboard" tabindex="1" @blur="onBlur">
-    <div class="car-template" v-show="showTemplate">
-      <!-- <button @click="newEnergy()">新能源</button> -->
+  <div class="car-keyboard-box" v-if="show" tabindex="1" @blur="onBlur">
+    <div class="car-template" v-show="showDisplay">
+      <span @click="changeToEnergy" class="energy-button">
+        <span class="button-bg" :class="{'enable-energy': isEnergyCar}"></span>
+        <span class="lock" v-show="currentValue.length > 0"></span>
+        <span class="unlock" v-show="currentValue.length === 0"></span>
+      </span>
       <template v-for="item in template" >
         <span class="car-template-item flex-center" :key="item.id">
           {{ item.value }}
         </span>
       </template>
-      <!-- <span class="car-template-item flex-center" v-if="isNewEnergy">
-        {{ newTemplateValue }}
-      </span> -->
-      <!-- {{ currentValue }} -->
     </div>
     <div class="keyboard">
-      <!-- 省份 -->
+      <!-- Provines Keyboard -->
       <div class="provinces-keyboard" v-show="showProvinesKeyboard">
         <template v-for="(provinceRow, index) in provincesList" >
           <div class="provinces-keyboard-row" :key="index">
@@ -21,7 +21,7 @@
               <span
                 class="province-key key flex-center"
                 :key="province.code"
-                @click="onClick(province.value)">
+                @click="onSelect(province.value)">
                 {{ province.value }}
               </span>
             </template>
@@ -35,9 +35,9 @@
           <template v-for="numberKey in numberKeyboard" >
             <span
               class="number-key key flex-center"
-              :class="{'key-disable': !showNumberKeyboard || currentValue.length === 7}"
+              :class="{'key-disable': !showNumberKeyboard || currentValue.length === displayLength}"
               :key="numberKey.code"
-              @click="showNumberKeyboard && onClick(numberKey.value)">
+              @click="showNumberKeyboard && onSelect(numberKey.value)">
               {{ numberKey.value }}
             </span>
           </template>
@@ -48,9 +48,9 @@
             <template  v-for="(englishKey) in englishKeyRow">
               <span
                 class="english-key key flex-center"
-                :class="{'key-disable': currentValue.length === 7 || englishKey.value === 'I' || englishKey.value === 'O'}"
+                :class="{'key-disable': currentValue.length === displayLength || englishKey.value === 'I' || englishKey.value === 'O'}"
                 :key="englishKey.code"
-                @click="onClick(englishKey.value)">
+                @click="onSelect(englishKey.value)">
                 {{ englishKey.value }}
               </span>
             </template>
@@ -60,13 +60,13 @@
       <!-- Fixed Keyboard -->
       <div class="fixed-keyboard-row">
         <!-- Special Keyboard -->
-        <template v-for="specialKey in specialKeyboard" >
+        <template v-for="specialKey in specKeyboard" >
           <span
             :key="specialKey.code"
-            v-show="currentValue.length >= 6"
+            v-show="currentValue.length >= displayLength - 1 && !isEnergyCar"
             class="english-key key flex-center"
-            :class="{'key-disable': currentValue.length === 7}"
-            @click="onClick(specialKey.value)">
+            :class="{'key-disable': currentValue.length === displayLength}"
+            @click="onSelect(specialKey.value)">
             {{ specialKey.value }}
           </span>
         </template>
@@ -97,38 +97,28 @@ export default {
       type: String,
       default: '',
     },
-    showKeyboard: {
+    show: {
       type: Boolean,
       default: false,
     },
-    showTemplate: {
+    showDisplay: {
       type: Boolean,
-      default: () => true,
+      default: () => false,
     },
   },
   data() {
     return {
-      // showKeyboard: this.show,
-      template: {
-        0: '',
-        1: '',
-        2: '',
-        3: '',
-        4: '',
-        5: '',
-        6: '',
-      },
-      templateLength: 7,
-      isNewEnergy: false,
-      // newTemplateValue: '',
+      template: new Array(8).fill(''),
+      displayLength: 7,
+      isEnergyCar: true,
       currentValue: this.value,
       showProvinesKeyboard: true,
       showNumberKeyboard: false,
-
+      // Keyboard Data: include provinces, numbers, english and some special keys.
       provincesList: provinces,
       numberKeyboard: numbers,
       englishKeyboard: englishKeys,
-      specialKeyboard: specialKeys,
+      specKeyboard: specialKeys,
     };
   },
   watch: {
@@ -147,17 +137,34 @@ export default {
       this.showProvinesKeyboard = this.currentValue.length < 1;
       this.showNumberKeyboard = this.currentValue.length >= 2;
     },
+    isEnergyCar(newStatus) {
+      if (newStatus) {
+        this.$nextTick(() => {
+          this.template.push('');
+          this.displayLength = 8;
+        });
+      } else {
+        this.template.pop();
+        this.displayLength = 7;
+      }
+      console.log(this.template);
+    },
   },
   beforeMount() {
-    this.showProvinesKeyboard = this.value.length < 1;
-    this.showNumberKeyboard = this.value.length >= 2;
-    for (let i = 0; i < this.value.length; i++) {
-      this.template[i] = { value: this.value[i] };
-    }
+    this.init();
   },
   methods: {
-    onClick(value) {
-      if (this.currentValue.length >= 7) return;
+    init() {
+      this.showProvinesKeyboard = this.value.length < 1;
+      this.showNumberKeyboard = this.value.length >= 2;
+      console.log(this.value.length);
+      this.isEnergyCar = this.value.length === 8;
+      for (let i = 0; i < this.value.length; i++) {
+        this.template[i] = { value: this.value[i] };
+      }
+    },
+    onSelect(value) {
+      if (this.currentValue.length >= this.displayLength) return;
       if (value === 'I' || value === 'O') return;
       this.currentValue += value;
       this.$emit('input', this.currentValue);
@@ -171,7 +178,7 @@ export default {
     },
     emitInput() {
       this.$emit('input', this.currentValue);
-      this.$emit('update:showKeyboard', false);
+      this.$emit('update:show', false);
     },
     reset() {
       this.currentValue = '';
@@ -180,18 +187,15 @@ export default {
     onBlur(e) {
       console.log(e, 'blur');
       this.$emit('input', this.currentValue);
-      this.$emit('update:showKeyboard', false);
+      this.$emit('update:show', false);
     },
-    onFocus(e) {
-      console.log(e, 'blur');
+    changeToEnergy(e) {
+      console.log(e);
+      e.preventDefault();
+      if (!this.currentValue.length) {
+        this.isEnergyCar = !this.isEnergyCar;
+      }
     },
-    // newEnergy() {
-    //   if (this.templateLength === 7) {
-    //     this.templateLength = 8;
-    //   } else {
-    //     this.templateLength = 7;
-    //   }
-    // },
   },
 };
 </script>
@@ -217,7 +221,7 @@ export default {
   border-top: 1px solid #aaa;
   background-color: #eee;
   overflow: hidden;
-  animation: 100ms move;
+  animation: 150ms move ease-in-out;
   z-index: 10;
   &:focus {
     outline: none;
@@ -229,6 +233,53 @@ export default {
   }
   to {
     bottom: 0;
+  }
+}
+
+.energy-button {
+  border: none;
+  background-color: #fff;
+  // filter: grayscale(80%);
+  position: relative;
+  width: 8vw;
+  height: 8vw;
+  padding: 0;
+  .button-bg {
+    display: block;
+    width: 8vw;
+    height: 8vw;
+    background-image: url('../../assets/image/energyCar.jpg');
+    border-radius: 50%;
+    background-size: contain;
+    filter: grayscale(1);
+    &.enable-energy {
+      filter: grayscale(0);
+    }
+  }
+  .lock {
+    position: absolute;
+    display: block;
+    right: -2px;
+    bottom: -2px;
+    width: 10px;
+    height: 10px;
+    background-image: url('../../assets/image/lock.svg');
+    z-index: 999999999;
+    background-size: contain;
+  }
+  .unlock {
+    position: absolute;
+    display: block;
+    right: -2px;
+    bottom: -2px;
+    width: 10px;
+    height: 10px;
+    background-image: url('../../assets/image/unlock.svg');
+    z-index: 999999999;
+    background-size: contain;
+  }
+  &:focus {
+    outline: none;
   }
 }
 
@@ -257,6 +308,7 @@ export default {
   flex-direction: column;
   margin: 10px 3vw 1rem 3vw;
   width: 96vw;
+  height: 40vh;
 }
 .key {
   background-color: #fff;
@@ -266,6 +318,7 @@ export default {
   font-size: 1.25rem;
   box-shadow: 0.125rem 0.25rem 0.375rem rgba(0,0,0,.1);
   width: 7vw;
+  user-select: none;
   &-disable {
     color: #999;
   }
@@ -321,6 +374,7 @@ export default {
   margin: 4px 1vw;
   box-shadow: 0.125rem 0.25rem 0.375rem rgba(0,0,0,.1);
   width: 10vw;
+  user-select: none;
 }
 .confirm-key {
   width: 10vw;
@@ -331,6 +385,7 @@ export default {
   padding: 2vh 2vw;
   margin: 4px 1vw;
   box-shadow: 0.125rem 0.25rem 0.375rem rgba(0,0,0,.1);
+  user-select: none;
 }
 
 </style>

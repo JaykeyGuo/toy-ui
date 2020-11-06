@@ -1,10 +1,10 @@
 <template>
   <div class="car">
-    <span>text</span>
+    <span>车牌号</span>
     <car-input
       class="text-xx"
       v-model="carNo"
-      :showTemplate="true"
+      :showDisplay="true"
     />
     <hr>
     {{ carNo }}
@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      carNo: '',
+      carNo: '皖GGHT',
     };
   },
 };

@@ -8,8 +8,8 @@
 
     <car-keyboard
       v-model="carPlateNumber"
-      :showTemplate="showTemplate"
-      :showKeyboard.sync="show">
+      :showDisplay.sync="showDisplay"
+      :show.sync="show">
     </car-keyboard>
   </div>
 </template>
@@ -29,9 +29,9 @@ export default {
       type: String,
       default: () => '',
     },
-    showTemplate: {
+    showDisplay: {
       type: Boolean,
-      default: () => true,
+      default: () => false,
     },
   },
   data() {
@@ -67,7 +67,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .car-input {
   width: 100vw;
   position: relative;
@@ -82,7 +82,7 @@ export default {
 }
 .number-input-cursor {
   pointer-events: none;
-  width: 1px;
+  width: 2px;
   height: 100%;
   animation: numeric-input-cursor 1s infinite;
   background-color: black;
