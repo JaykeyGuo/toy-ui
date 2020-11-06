@@ -1,5 +1,5 @@
 <template>
-  <div class="car-keyboard-box" v-if="showKeyboard">
+  <div class="car-keyboard-box" v-if="showKeyboard" tabindex="1" @blur="onBlur">
     <div class="car-template" v-show="showTemplate">
       <!-- <button @click="newEnergy()">新能源</button> -->
       <template v-for="item in template" >
@@ -177,6 +177,14 @@ export default {
       this.currentValue = '';
       this.$emit('input', this.currentValue);
     },
+    onBlur(e) {
+      console.log(e, 'blur');
+      this.$emit('input', this.currentValue);
+      this.$emit('update:showKeyboard', false);
+    },
+    onFocus(e) {
+      console.log(e, 'blur');
+    },
     // newEnergy() {
     //   if (this.templateLength === 7) {
     //     this.templateLength = 8;
@@ -211,6 +219,9 @@ export default {
   overflow: hidden;
   animation: 100ms move;
   z-index: 10;
+  &:focus {
+    outline: none;
+  }
 }
 @keyframes move {
   from {
