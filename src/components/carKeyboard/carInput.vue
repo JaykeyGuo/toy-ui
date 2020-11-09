@@ -7,6 +7,7 @@
     </div>
 
     <car-keyboard
+      ref="carKeyboard"
       v-model="carPlateNumber"
       :showDisplay.sync="showDisplay"
       :show.sync="show">
@@ -54,14 +55,15 @@ export default {
       this.$emit('input', this.carPlateNumber);
     },
   },
-  mounted() {
-    console.log(this.$attrs);
-  },
   methods: {
     onTouchend(e) {
       e.preventDefault();
       e.stopPropagation();
       this.show = true;
+      this.$nextTick(() => {
+        this.$refs.carKeyboard.$el.focus();
+        console.log();
+      });
     },
   },
 };
@@ -82,7 +84,7 @@ export default {
 }
 .number-input-cursor {
   pointer-events: none;
-  width: 2px;
+  width: 1px;
   height: 100%;
   animation: numeric-input-cursor 1s infinite;
   background-color: black;
@@ -96,6 +98,6 @@ export default {
   }
 }
 .number-input-placeholder {
-  color: #aaa;
+  color: #c8c9cc;
 }
 </style>

@@ -37,7 +37,6 @@ export const provinces = [
     { code: 24029, value: '川' },
     { code: 23425, value: '宁' },
     { code: 29756, value: '琼' },
-    // { code: 20351, value: '使' },
   ],
 ];
 

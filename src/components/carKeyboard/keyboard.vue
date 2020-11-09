@@ -129,7 +129,6 @@ export default {
           this.template[i] = { value: this.currentValue[i] };
         }
       } else {
-        console.log('xxx');
         for (let i = 0; i < 7; i++) {
           this.template[i] = { value: '' };
         }
@@ -147,7 +146,6 @@ export default {
         this.template.pop();
         this.displayLength = 7;
       }
-      console.log(this.template);
     },
   },
   beforeMount() {
@@ -157,7 +155,6 @@ export default {
     init() {
       this.showProvinesKeyboard = this.value.length < 1;
       this.showNumberKeyboard = this.value.length >= 2;
-      console.log(this.value.length);
       this.isEnergyCar = this.value.length === 8;
       for (let i = 0; i < this.value.length; i++) {
         this.template[i] = { value: this.value[i] };
@@ -184,13 +181,11 @@ export default {
       this.currentValue = '';
       this.$emit('input', this.currentValue);
     },
-    onBlur(e) {
-      console.log(e, 'blur');
+    onBlur() {
       this.$emit('input', this.currentValue);
       this.$emit('update:show', false);
     },
     changeToEnergy(e) {
-      console.log(e);
       e.preventDefault();
       if (!this.currentValue.length) {
         this.isEnergyCar = !this.isEnergyCar;
@@ -221,7 +216,7 @@ export default {
   border-top: 1px solid #aaa;
   background-color: #eee;
   overflow: hidden;
-  animation: 150ms move ease-in-out;
+  animation: 100ms move ease-in-out;
   z-index: 10;
   &:focus {
     outline: none;
@@ -248,7 +243,7 @@ export default {
     display: block;
     width: 8vw;
     height: 8vw;
-    background-image: url('../../assets/image/energyCar.jpg');
+    background-image: url('./image/energyCar.jpg');
     border-radius: 50%;
     background-size: contain;
     filter: grayscale(1);
@@ -263,7 +258,7 @@ export default {
     bottom: -2px;
     width: 10px;
     height: 10px;
-    background-image: url('../../assets/image/lock.svg');
+    background-image: url('./image/lock.svg');
     z-index: 999999999;
     background-size: contain;
   }
@@ -274,7 +269,7 @@ export default {
     bottom: -2px;
     width: 10px;
     height: 10px;
-    background-image: url('../../assets/image/unlock.svg');
+    background-image: url('./image/unlock.svg');
     z-index: 999999999;
     background-size: contain;
   }
