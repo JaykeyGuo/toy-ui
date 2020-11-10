@@ -2,9 +2,28 @@
   <div class="car-keyboard-box" v-if="show" tabindex="1" @blur="onBlur">
     <div class="car-template" v-show="showDisplay">
       <span @click="changeToEnergy" class="energy-button">
-        <span class="button-bg" :class="{'enable-energy': isEnergyCar}"></span>
-        <span class="lock" v-show="currentValue.length > 0"></span>
-        <span class="unlock" v-show="currentValue.length === 0"></span>
+        <!-- <img
+          class="button-bg"
+          :class="{'enable-energy': isEnergyCar}"
+          :src="energyBtnImg"
+          alt="新能源车牌"
+        /> -->
+        <span
+          class="button-bg"
+          :class="{'enable-energy': isEnergyCar}">
+          新能源
+        </span>
+        <!-- <img
+          v-show="currentValue.length > 0"
+          class="lock"
+          :src="require('@/assets/image/lock.svg')"
+          alt="锁定"
+        />
+        <img
+          v-show="currentValue.length === 0"
+          class="unlock"
+          :src="require('@/assets/image/unlock.svg')"
+          alt="解锁"> -->
       </span>
       <template v-for="item in template" >
         <span class="car-template-item flex-center" :key="item.id">
@@ -95,16 +114,20 @@ export default {
   props: {
     value: {
       type: String,
-      default: '',
+      default: () => '',
     },
     show: {
       type: Boolean,
-      default: false,
+      default: () => false,
     },
     showDisplay: {
       type: Boolean,
       default: () => false,
     },
+    // energyBtnImg: {
+    //   type: String,
+    //   default: () => '',
+    // },
   },
   data() {
     return {
@@ -236,19 +259,35 @@ export default {
   background-color: #fff;
   // filter: grayscale(80%);
   position: relative;
-  width: 8vw;
-  height: 8vw;
-  padding: 0;
+  // width: 14vw;
+  // height: 8vw;
+  // padding: 0;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  cursor: pointer;
+  user-select: none;
   .button-bg {
-    display: block;
-    width: 8vw;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 0.125rem 0.25rem 0.375rem rgba(0,0,0,.1);
+    width: 14vw;
     height: 8vw;
-    background-image: url('./image/energyCar.jpg');
-    border-radius: 50%;
-    background-size: contain;
-    filter: grayscale(1);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    // background-image: '~@/assets/image/energyCar.jpg';
+    // background-size: contain;
+    color: #fff;
+    background-color: #aaa;
+    // filter: grayscale(1);
     &.enable-energy {
-      filter: grayscale(0);
+      color: #fff;
+      background-color: #A7D7B2;
+      border-color: #A7D7B2;
+      // filter: grayscale(0);
     }
   }
   .lock {
@@ -258,7 +297,6 @@ export default {
     bottom: -2px;
     width: 10px;
     height: 10px;
-    background-image: url('./image/lock.svg');
     z-index: 999999999;
     background-size: contain;
   }
@@ -269,7 +307,6 @@ export default {
     bottom: -2px;
     width: 10px;
     height: 10px;
-    background-image: url('./image/unlock.svg');
     z-index: 999999999;
     background-size: contain;
   }

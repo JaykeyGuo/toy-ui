@@ -4,6 +4,7 @@
     <car-input
       class="text-xx"
       v-model="carNo"
+      energyBtnImg="@/assets/image/energyCar.jpg"
       :showDisplay="true"
     />
     <hr>

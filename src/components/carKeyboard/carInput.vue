@@ -12,6 +12,8 @@
       :showDisplay.sync="showDisplay"
       :show.sync="show">
     </car-keyboard>
+    <!-- :energyBtnImg="energyBtnImg"
+    :showEnergyLock="showEnergyLock" -->
   </div>
 </template>
 
@@ -34,6 +36,14 @@ export default {
       type: Boolean,
       default: () => false,
     },
+    // energyBtnImg: {
+    //   type: String,
+    //   default: () => '',
+    // },
+    // showEnergyLock: {
+    //   type: Boolean,
+    //   default: () => false,
+    // },
   },
   data() {
     return {
