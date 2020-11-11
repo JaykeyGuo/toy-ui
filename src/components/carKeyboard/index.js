@@ -1,3 +1,3 @@
-import CarInput from './carInput.vue';
+import CarInput from './src/carInput.vue';
 
 export default CarInput;
