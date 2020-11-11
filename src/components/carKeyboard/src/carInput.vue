@@ -18,12 +18,10 @@
 <script>
 import '@/assets/scss/carKeyboard.scss';
 
-import Emitter from '@/mixins/emitter';
 import CarKeyboard from './keyboard.vue';
 
 export default {
   name: 'CarInput',
-  mixins: [Emitter],
   components: {
     CarKeyboard,
   },
