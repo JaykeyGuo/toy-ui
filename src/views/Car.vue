@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import CarInput from '@/components/carKeyboard/carInput.vue';
+import CarInput from '@/components/carKeyboard';
 
 export default {
   name: 'Car',
