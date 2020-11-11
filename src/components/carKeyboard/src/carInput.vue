@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import '@/assets/scss/carKeyboard.scss';
-
 import CarKeyboard from './keyboard.vue';
 
 export default {
@@ -67,3 +65,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/carKeyboard.scss';
+</style>

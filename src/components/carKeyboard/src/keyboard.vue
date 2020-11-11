@@ -105,8 +105,6 @@
 </template>
 
 <script>
-import '@/assets/scss/carKeyboard.scss';
-
 import {
   provinces, numbers, englishKeys, specialKeys,
 } from './keyboardData';
@@ -218,6 +216,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/carKeyboard.scss';
 .flex-center {
   display: flex;
   align-items: center;
