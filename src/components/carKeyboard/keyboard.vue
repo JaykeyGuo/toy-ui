@@ -1,6 +1,11 @@
 <template>
   <div class="car-keyboard-box" v-if="show" tabindex="1" @blur="onBlur">
     <div class="car-template" v-show="showDisplay">
+      <template v-for="(item, index) in template" >
+        <span class="car-template-item flex-center" :class="{ 'energy-item': index === 7 }" :key="item.id">
+          {{ item.value }}
+        </span>
+      </template>
       <span @click="changeToEnergy" class="energy-button">
         <!-- <img
           class="button-bg"
@@ -25,11 +30,6 @@
           :src="require('@/assets/image/unlock.svg')"
           alt="解锁"> -->
       </span>
-      <template v-for="item in template" >
-        <span class="car-template-item flex-center" :key="item.id">
-          {{ item.value }}
-        </span>
-      </template>
     </div>
     <div class="keyboard">
       <!-- Provines Keyboard -->
@@ -326,13 +326,17 @@ export default {
   box-sizing: border-box;
 }
 .car-template-item {
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
   border-radius: 6px;
   min-width: 6vw;
-  min-height: 6vw;
+  min-height: 8vw;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   padding: 3px;
+  &.energy-item {
+    border-color: #83ce95;
+    box-shadow: 0.1rem 0.2rem 0.25rem #83ce9530;
+  }
 }
 
 .keyboard {
