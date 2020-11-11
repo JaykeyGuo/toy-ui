@@ -67,7 +67,9 @@
             <template  v-for="(englishKey) in englishKeyRow">
               <span
                 class="english-key key flex-center"
-                :class="{'key-disable': currentValue.length === displayLength || englishKey.value === 'I' || englishKey.value === 'O'}"
+                :class="{'key-disable': currentValue.length === displayLength
+                                        || englishKey.value === 'I'
+                                        || (currentValue.length < 2 && englishKey.value === 'O')}"
                 :key="englishKey.code"
                 @click="onSelect(englishKey.value)">
                 {{ englishKey.value }}
@@ -185,7 +187,8 @@ export default {
     },
     onSelect(value) {
       if (this.currentValue.length >= this.displayLength) return;
-      if (value === 'I' || value === 'O') return;
+      if (this.currentValue.length >= 2 && value === 'O') return;
+      if (value === 'I') return;
       this.currentValue += value;
       this.$emit('input', this.currentValue);
     },
