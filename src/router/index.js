@@ -61,11 +61,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "tree" */ '../views/Tree.vue'),
   },
   {
-    path: '/license',
-    name: 'License',
-    component: () => import(/* webpackChunkName: "license" */ '../views/License.vue'),
-  },
-  {
     path: '/car',
     name: 'Car',
     component: () => import(/* webpackChunkName: "car" */ '../views/Car.vue'),

@@ -9,6 +9,7 @@ import RadioGroup from './radioGroup';
 import TableRender from './table-render';
 import TableSlot from './table-slot';
 import Tree from './tree';
+import CarInput from './carKeyboard';
 
 const components = [
   Checkbox,
@@ -21,6 +22,7 @@ const components = [
   TableRender,
   TableSlot,
   Tree,
+  CarInput,
 ];
 
 // eslint-disable-next-line func-names
@@ -43,4 +45,5 @@ export default {
   TableRender,
   TableSlot,
   Tree,
+  CarInput,
 };
